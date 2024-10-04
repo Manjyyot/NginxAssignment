@@ -1,0 +1,58 @@
+ Drafting the documentation for installing and configuring VirtualBox, Ubuntu, and Nginx in a .txt file.
+
+documentation_content = 
+Virtual Machine (VM) - Overview
+A virtual machine (VM) is a software emulation of a physical computer that runs an operating system and applications just like a physical machine. VMs allow you to create multiple isolated environments on a single physical host, each with its own virtual hardware configuration. This virtualization technology provides several advantages, such as the ability to run multiple operating systems on a single physical machine, easy migration of VMs between different hosts, and improved resource utilization.
+
+The virtualization layer called the hypervisor is responsible for managing the VMs and enabling communication between them and the underlying physical hardware. There are two types of hypervisors: Type 1 hypervisor (bare-metal) runs directly on the physical hardware, while Type 2 hypervisor runs on top of an existing operating system.
+
+Oracle VirtualBox - Overview
+Oracle VirtualBox is a popular Type 2 hypervisor that allows you to create and manage virtual machines on your desktop or laptop. It supports a wide range of guest operating systems, including Windows, Linux, macOS, and more. VirtualBox is free and open-source, making it an excellent choice for developers, testers, and anyone interested in exploring virtualization.
+
+How to Install VirtualBox on Windows
+
+Step 1: Download VirtualBox
+1. Go to the official VirtualBox website: https://www.virtualbox.org/
+2. Click on the "Downloads" link in the top navigation menu.
+
+Step 2: Choose the Correct Package
+1. Select the appropriate package for Windows.
+
+Step 3: Install VirtualBox
+1. Download the installer for Windows and double-click on the downloaded file to start the installation.
+2. Follow the on-screen instructions and accept the license agreement.
+3. Choose the components you want to install and the installation path.
+4. Complete the installation process.
+
+Step 4: Post-installation Configuration
+1. After installation, add your user account to the "VirtualBox Users" group to grant permissions to manage VMs.
+   - Right-click on This PC and select Manage.
+   - Go to Local Users and Groups > Groups.
+   - Double-click on VirtualBox Users, click Add, and include your user account.
+
+Step 5: Launch VirtualBox
+1. Launch VirtualBox from the Start menu.
+
+Installing Ubuntu 22.04 in VirtualBox
+1. Download the Ubuntu 22.04 image from https://www.osboxes.org/.
+2. Create a new VM in VirtualBox and configure it with the downloaded image.
+3. Follow the on-screen instructions to install Ubuntu.
+
+Installing Nginx in Ubuntu
+1. Open the terminal in Ubuntu (Ctrl + Alt + T).
+2. Update the package list:
+   sudo apt update
+3. Install Nginx:
+   sudo apt install nginx
+4. Start Nginx:
+   sudo systemctl start nginx
+5. Enable Nginx to start on boot:
+   sudo systemctl enable nginx
+6. Verify the installation by accessing http://localhost in your web browser.
+
+Scanning the VM with Nmap
+1. Find the VM's IP address using the command:
+   ip a
+2. On the host machine, use Nmap to scan the VM:
+   nmap <VM-IP-address>
+3. Observe the open ports in the scan results.
