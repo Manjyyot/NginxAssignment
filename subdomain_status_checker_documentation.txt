@@ -1,0 +1,72 @@
+
+# Documentation for Subdomain Status Checker
+
+## Objective
+The purpose of this script is to periodically check the HTTP status of specified websites and display their status in real-time. This tool is useful for monitoring the availability of web services and can help identify any downtime or accessibility issues.
+
+## Environment
+- **Programming Language**: Python 3.x
+- **Dependencies**: `requests`
+- **Execution Platform**: Any platform supporting Python, including Windows, macOS, and Linux.
+
+## Requirements
+Before running the script, ensure that the following are met:
+- Python 3.x installed on your machine.
+- `requests` library installed for handling HTTP requests.
+
+### Installation of Dependencies
+To install the required `requests` library, use the following command in your terminal or command prompt:
+```bash
+pip install requests
+```
+
+## Script Overview
+The script checks the status of several specified websites every minute and displays their status in a tabular format. The main components of the script include:
+- A list of websites to monitor.
+- Functions to check the status and display results.
+- A loop that runs indefinitely, checking the status at one-minute intervals.
+
+## Code Explanation
+Here’s a breakdown of the main components of the script:
+
+1. **Imports**:
+   - The script imports the `requests` library for making HTTP requests and `time` for handling sleep intervals.
+
+2. **Subdomain List**:
+   - A list called `subdomains` contains the URLs of the websites to check.
+
+3. **Check Status Function**:
+   - `check_status(url)`: This function attempts to send a GET request to the specified URL and returns "UP" if the status code is 200, indicating the website is available. If the request fails or returns a different status code, it returns "DOWN".
+
+4. **Display Status Function**:
+   - `display_status(statuses)`: This function formats and prints the status of each website in a clear table format.
+
+5. **Main Function**:
+   - `main()`: This is the main function that runs an infinite loop, checking the status of each website and displaying the results every minute.
+
+6. **Execution Block**:
+   - The script runs the `main()` function when executed as the main module.
+
+## Usage
+To use the script, follow these steps:
+
+1. **Copy the Script**: Copy the provided Python script into a text editor and save it with a `.py` extension (e.g., `subdomain_status.py`).
+
+2. **Edit the Subdomain List**: If needed, modify the `subdomains` list to include the URLs you want to monitor.
+
+3. **Run the Script**: Open a terminal or command prompt and navigate to the directory where the script is saved. Run the script using:
+   ```bash
+   python subdomain_status.py
+   ```
+
+4. **View the Output**: The script will output the status of each website every minute in the terminal.
+
+## Troubleshooting
+- **ModuleNotFoundError**: If you encounter a `ModuleNotFoundError` for the `requests` module, ensure that you have installed it using `pip install requests`.
+
+- **Script Stopping**: If the script stops unexpectedly, check your internet connection or the validity of the URLs in the `subdomains` list.
+
+- **Permissions**: Ensure you have the necessary permissions to run Python scripts on your system. If using Linux or macOS, you might need to run the script with `sudo` for certain configurations.
+
+## Conclusion
+This script provides a straightforward way to monitor the status of websites in real-time, helping users keep track of their web services' availability. By simplifying the implementation and avoiding external dependencies, it makes web monitoring accessible to a wide range of users.
