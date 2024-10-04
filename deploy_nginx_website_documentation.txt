@@ -1,0 +1,140 @@
+﻿Deploying a Website on Localhost with Nginx on Ubuntu (Running on Windows)
+
+
+ Purpose:
+The aim of this project was to set up a simple website on my localhost using Nginx and to assign it a friendly DNS name, "awesomeweb." I wanted to document my journey, including the challenges I encountered and the solutions I implemented.
+
+
+ Setup Environment:
+- Host Operating System: Windows
+- Virtualization Software: Oracle VirtualBox
+- Guest Operating System: Ubuntu 22.04
+- Web Server: Nginx
+
+
+ Detailed Steps
+
+
+ Step 1: Virtual Machine Setup
+1. Install VirtualBox: I downloaded and installed Oracle VirtualBox from their official site to create a virtual environment for Ubuntu.
+2. Get Ubuntu Image: I visited OSBoxes to download the Ubuntu 22.04 image, which would serve as the operating system for my VM.
+3. Create a New Virtual Machine: I set up a new VM in VirtualBox, ensuring I allocated adequate RAM and disk space for optimal performance.
+
+
+ Step 2: Installing Nginx
+1. Access Terminal in Ubuntu: Once the VM was up and running, I opened the terminal to start the installation process.
+2. Update the Package Index: To ensure I had the latest package information, I executed:
+   bash
+   sudo apt update
+   
+3. Install Nginx: I proceeded with the installation using:
+   bash
+   sudo apt install nginx
+   
+   - This step went off without a hitch, with all dependencies installed smoothly.
+
+
+ Step 3: Starting and Enabling Nginx
+1. Start Nginx: I wanted to check if Nginx was up and running, so I executed:
+   bash
+   sudo systemctl start nginx
+   
+2. Enable Nginx on Boot: To ensure Nginx would start automatically upon booting, I ran:
+   bash
+   sudo systemctl enable nginx
+   
+3. Check Nginx Status: I wanted to confirm everything was functioning correctly, so I checked the status:
+   bash
+   sudo systemctl status nginx
+   
+   - Here, I faced a hiccup as Nginx failed to start due to a duplicate "root" directive in my configuration files. After some troubleshooting, I found and fixed the conflicting entries in the `/etc/nginx/sites-available/` and `/etc/nginx/sites-enabled/` directories.
+
+
+ Step 4: Setting Up the Website
+1. Create Directory for the Website: I created a dedicated directory to house my website files:
+   bash
+   sudo mkdir -p /var/www/awesomeweb
+   
+2. Create HTML File: Using nano, I crafted a simple HTML page:
+   bash
+   sudo nano /var/www/awesomeweb/index.html
+   
+   - Here’s the HTML I included:
+   html
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>Awesome Web</title>
+   </head>
+   <body>
+       <h1>Welcome to AwesomeWeb!</h1>
+       <p>This is a simple website hosted on Nginx.</p>
+   </body>
+   </html>
+   
+   - After finishing the edits, I saved and exited the nano editor (CTRL + X, then Y to confirm).
+
+
+ Step 5: Configuring Nginx for the New Site
+1. Create Configuration File: I created a new configuration file for my site:
+   bash
+   sudo nano /etc/nginx/sites-available/awesomeweb
+   
+   - I added the following configuration:
+   nginx
+   server {
+       listen 80;
+       server_name awesomeweb;
+
+
+       root /var/www/awesomeweb;
+       index index.html;
+
+
+       location / {
+           try_files $uri $uri/ =404;
+       }
+   }
+   
+2. Enable the Configuration: I created a symbolic link:
+   bash
+   sudo ln -s /etc/nginx/sites-available/awesomeweb /etc/nginx/sites-enabled/
+   
+3. Test the Configuration: Before reloading Nginx, I ran:
+   bash
+   sudo nginx -t
+   
+   - Fortunately, it showed no errors this time!
+4. Reload Nginx: I reloaded Nginx to apply my changes:
+   bash
+   sudo systemctl reload nginx
+   
+
+
+ Step 6: Setting Up Local DNS
+1. Edit Hosts File: To access the site using "awesomeweb," I needed to modify the hosts file:
+   bash
+   sudo nano /etc/hosts
+   
+   - I added the following line:
+   bash
+   127.0.0.1    awesomeweb
+   
+
+
+ Step 7: Accessing the Website
+- Finally, I opened my web browser on the Windows host machine and typed http://awesomeweb. To my relief, the website loaded perfectly, showcasing my welcoming message!
+  
+
+
+
+ Troubleshooting and Observations
+- Service Failure: Initially, Nginx failed to start, which was frustrating. It made me double-check the configuration files to find and fix the duplicate directive issue. This was a valuable lesson in being cautious with configuration settings.
+- Hosts File Edit: Editing the hosts file was straightforward, but I had to ensure I used sudo to gain the necessary permissions.
+- Local Testing: I learned how powerful local DNS can be for testing web applications without deploying them online.
+
+
+ Conclusion
+Deploying a website on localhost with Nginx was a rewarding experience. It taught me valuable lessons about web server configuration, troubleshooting, and the importance of careful setup. Now, I have a simple yet functional website running on my local machine, which I can build upon as I continue to learn more about web development.
